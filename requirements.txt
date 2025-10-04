@@ -1,0 +1,7 @@
+python-telegram-bot==20.6
+requests
+google-genai 
+google-api-python-client 
+nest-asyncio
+yt-dlp
+ffmpeg-python
