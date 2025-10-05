@@ -9,13 +9,7 @@ import requests
 from telegram import Update
 from googleapiclient.discovery import build
 from google.genai import types 
-from telegram.ext import (
-    ApplicationBuilder,
-    CommandHandler, 
-    MessageHandler, 
-    filters, 
-    CallbackContext
-)
+from telegram.ext import ApplicationBuilder,CommandHandler,MessageHandler,filters,ContextTypes
 BOT_TOKEN = "8319035036:AAG2C3YbDUa4cZgSkcAb_KnF51dzueW0Ru0"
 API_KEY="e110de4530ce8923798c6668613b92f3"
 OPENIA_KEY="AIzaSyBBJbrPdw2fwfsmGu6sV-yFAdeZQBJDUvc"
@@ -544,7 +538,7 @@ async def auto_reply(update: Update, context: CallbackContext):
 
 # Main
 async def main():
-    updater = Updater(BOT_TOKEN, use_context=True)
+    app = ApplicationBuilder.token(BOT_TOKEN).build()
 
     app.add_handler(CommandHandler("start", start))
     app.add_handler(CommandHandler("help", help_command))
