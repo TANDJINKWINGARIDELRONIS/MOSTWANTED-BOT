@@ -96,7 +96,7 @@ async def local_time(city):
     print("Heure locale affichee avec succès !")
     return data1["formatted"]
 
-async def time_command(update: Update, context: CallbackContext):
+async def time_command(update,context):
    if not context.args:
        await update.message.reply_text("Ghost 🤖 : Utilisation : /time <Nom de la ville>")
        return
@@ -104,7 +104,7 @@ async def time_command(update: Update, context: CallbackContext):
    await update.message.reply_text(local_time(ville))
 
 # Fonction infos
-async def bot_infos(update: Update, context: CallbackContext):
+async def bot_infos(update,context):
     await update.message.reply_text(
         "Ghost 🤖 : \n"
         "🤓️BOT NAME : GHOST \n"
@@ -141,7 +141,7 @@ async def meteo(update,context) :
         await update.message.reply_text("Ghost 🤖 : Utilisation correcte /meteo <nom ville>")
         return 
     ville=" ".join(context.args)      
-    await tupdate.message.reply_text(met(ville))
+    await update.message.reply_text(met(ville))
 
 async def gen_phrase(update, context):
     if not context.args:
