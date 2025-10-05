@@ -16,14 +16,13 @@ from telegram.ext import (
     filters, 
     CallbackContext
 )
-from dotenv import load_dotenv
+BOT_TOKEN = "8319035036:AAG2C3YbDUa4cZgSkcAb_KnF51dzueW0Ru0"
+API_KEY="e110de4530ce8923798c6668613b92f3"
+OPENIA_KEY="AIzaSyBBJbrPdw2fwfsmGu6sV-yFAdeZQBJDUvc"
+KEY_TIME = "9UJS6LPXID3A"
+youtube_api = "AIzaSyBx-Dr2ttZjd2UQNsVnjC1Xel6ZlpHNNx8"
+youtube = build("youtube","v3",developerKey=youtube_api)
 
-load_dotenv()  # lit le fichier .env
-
-BOT_TOKEN = os.getenv("BOT_TOKEN")
-API_KEY = os.getenv("API_KEY")
-KEY_TIME = os.getenv("KEY_TIME")
-youtube_api = os.getenv("YOUTUBE_API_KEY")
 MUSIC = "music_MW"
 USERS_FILE = "users1.json"
 users1 = {}
@@ -544,7 +543,6 @@ async def auto_reply(update: Update, context: CallbackContext):
 # Main
 async def main():
     updater = Updater(BOT_TOKEN, use_context=True)
-    dp = updater.dispatcher
 
     app.add_handler(CommandHandler("start", start))
     app.add_handler(CommandHandler("help", help_command))
