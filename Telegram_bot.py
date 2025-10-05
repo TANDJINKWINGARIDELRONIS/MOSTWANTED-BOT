@@ -264,23 +264,30 @@ async def mod(update,context) :
     except :
         await update.message.reply_text("Ghost 🤖 : ❌Usage correct : /mod <nombre1> <nombre2>")
 
+
 #fonction pour questionner le bot 
 async def ask(update,context) :
-    texte = " ".join(context.args)
-    if not texte :
-        await update.message.reply_text("Ghost 🤖 : ✨Utilisation : /ask <ta question>")
-    try :
+    question = " ".join(context.args)
+    sender = update.message.from_user.first_name
+    print(f"Le client {sender} a poser cette question au bot : {question}")
+    if not question:
+        await update.message.reply_text("❌ Utilisation : /ask <ta question>")
+        return
+
+    try:
         client = genai.Client(api_key="AIzaSyCXiKQpXkQJjd0bxkHYiuoDcFOLjmM37vA")
-        
+
         response = client.models.generate_content(
-            model = "gemini-2.0-flash",
-            contents=texte
+            model="gemini-2.5-pro",
+            contents=question
         )
+
         answer = response.text
-        for i in range(0,len(answer),2000):
-            await update.message.reply_text("GHOST 🤖 : " +answer[i:i+4096])
+        for i in range(0,len(answer),2000) :
+            await update.message.reply_text("Machine_IA🤖 \n ")
+            await update.message.reply_text("💡 Réponse : "+answer[i:i+4096])
     except Exception as e:
-        await update.message.reply_text(f"⚠️ GHOST 🤖 : {e}")
+        await update.message.reply_text(f"⚠️ Machine IA : {e}")
         
 async def play(update, context):
     if not context.args:
@@ -536,6 +543,27 @@ async def auto_reply(update,context):
 
     await update.message.reply_text(reply)
 
+async def clear(update,context):
+    chat = update.message.chat
+    chat_id = chat.id
+    message_id = update.message.message_id
+
+    if chat.type == "private":
+        empty_block = "\n\n".join(["\u200E" for _ in range(100)])
+        await update.message.reply_text("🧹 Nettoyage de ta messagerie en cours...\n\n" + empty_block + "\n\n✅ Messagerie nettoyée")
+        return
+
+    if chat.type in ["group","supergroup"]:
+        try:
+            for i in range(message_id,message_id-250,-1):
+                try:
+                   await context.bot.delete_message(chat_id=chat_id,message_id=i)
+                except:
+                    pass
+            await update.message.reply_text("✅ 50 derniers messages supprimés")
+        except:
+            await update.message.reply_text("❌ Impossible de nettoyer (le bot doit être admin et avoir la permission de suppression)")
+
 # Main
 async def main():
     app = ApplicationBuilder.token(BOT_TOKEN).build()
@@ -557,6 +585,7 @@ async def main():
     app.add_handler(CommandHandler("question",ask))
     app.add_handler(CommandHandler("audio",play))
     app.add_handler(CommandHandler("movie",youtube_se))
+    app.add_handler(CommandHandler("clear",clear))
     app.add_handler(CommandHandler("ping",ping))
     
     app.add_handler(MessageHandler(filters.TEXT & (~filters.COMMAND),auto_reply))
@@ -569,7 +598,7 @@ if __name__ == "__main__":
     nest_asyncio.apply()  
     
     from telegram.ext import ApplicationBuilder
-    import asyncio
+    
     
     app = ApplicationBuilder().token(BOT_TOKEN).build()
     
@@ -589,6 +618,7 @@ if __name__ == "__main__":
     app.add_handler(CommandHandler("exp",exp))
     app.add_handler(CommandHandler("question",ask))
     app.add_handler(CommandHandler("audio",play))
+    app.add_handler(CommandHandler("clear",clear))
     app.add_handler(CommandHandler("movie",youtube_se))
     app.add_handler(CommandHandler("ping",ping))
     
