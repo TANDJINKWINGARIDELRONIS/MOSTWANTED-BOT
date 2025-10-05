@@ -483,7 +483,7 @@ async def ping (update,context) :
     await update.message.reply_text(f"MOSTWANTED_BOT 🤖\n salut ☺️ {user.first_name} je suis en ligne ✅  ") 
   
 # Réponses automtiques
-async def auto_reply(update: Update, context: CallbackContext):
+async def auto_reply(update,context):
     bot_username = context.bot.username.lower()
     text = update.message.text.lower()
     user=update.message.from_user
@@ -559,7 +559,7 @@ async def main():
     app.add_handler(CommandHandler("movie",youtube_se))
     app.add_handler(CommandHandler("ping",ping))
     
-    app.add_handler(MessageHandler(filters.text & ~filters.command, auto_reply))
+    app.add_handler(MessageHandler(filters.TEXT & (~filters.COMMAND),auto_reply))
 
     print("Ghost a été lancé avec succès ✅...")
     await app.run_polling()
