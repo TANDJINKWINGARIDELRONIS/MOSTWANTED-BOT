@@ -15,4 +15,4 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY . .
 
 # Lancer ton bot
-CMD ["python3", "telegram_bot.py"]
+CMD ["python3", "Telegram_bot.py"]
