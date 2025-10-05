@@ -1,4 +1,4 @@
-oimport os
+import os
 import time
 from random import *
 from google import genai
