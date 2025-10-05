@@ -520,6 +520,8 @@ async def auto_reply(update,context):
         reply="Ghost 🤖 : yes mon Cho carré et toi😎"
     elif "asser" in text :
         reply=f"Ghost 🤖 : wy {user.first_name}" 
+    elif "qui es tu" in text :
+        reply ="Ghost 🤖 : un mini bot créer par MOSTWANTED 😎"
     else:
         responses = [
             "Ghost 🤖 : RÉPONSE ALÉATOIRE 🔀 \n Salut 👋 ça va ?",
