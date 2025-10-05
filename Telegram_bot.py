@@ -50,7 +50,7 @@ async def start(update,context):
     await update.message.reply_text(f"Ghost 🤖 : Salut {user.first_name} ! Tu es enregistré ✅\n Tape /help pour voir ce dont je suis capable 😎")
     
 # Fonction help
-async def help_command(update: contex):
+async def help_command(update,context):
     user= update.message.from_user
     await update.message.reply_text(
         f"Ghost 🤖 : salut 👋🏻 {user.first_name} \n"
