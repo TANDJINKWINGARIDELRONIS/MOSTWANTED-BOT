@@ -51,6 +51,7 @@ async def start(update,context):
     
 # Fonction help
 async def help_command(update: contex):
+    user= update.message.from_user
     await update.message.reply_text(
         f"Ghost 🤖 : salut 👋🏻 {user.first_name} \n"
         "╭─≼ 👨🏻‍💻 MOSTWANTED BOT 🤖 ≽─╮\n"
@@ -484,13 +485,14 @@ async def youtube_se(update,context):
 
 #test connexion 
 async def ping (update,context) :
+    user=update.message.from_user
     await update.message.reply_text(f"MOSTWANTED_BOT 🤖\n salut ☺️ {user.first_name} je suis en ligne ✅  ") 
   
 # Réponses automtiques
 async def auto_reply(update: Update, context: CallbackContext):
     bot_username = context.bot.username.lower()
     text = update.message.text.lower()
-
+    user=update.message.from_user
     if (update.message.chat.type != 'private') and (f"@{bot_username}" not in text):
         return
 
