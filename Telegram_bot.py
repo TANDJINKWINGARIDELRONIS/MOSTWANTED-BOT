@@ -565,5 +565,36 @@ async def main():
     await app.run_polling()
 
 if __name__ == "__main__":
-    main()
+    import nest_asyncio
+    nest_asyncio.apply()  
+    
+    from telegram.ext import ApplicationBuilder
+    import asyncio
+    
+    app = ApplicationBuilder().token(BOT_TOKEN).build()
+    
+    app.add_handler(CommandHandler("start", start))
+    app.add_handler(CommandHandler("help", help_command))
+    app.add_handler(CommandHandler("hour", time_command))
+    app.add_handler(CommandHandler("infos", bot_infos))
+    app.add_handler(CommandHandler("getmeteo", meteo))
+    app.add_handler(CommandHandler("generate",gen_phrase))
+    app.add_handler(CommandHandler("sendto", sendto))
+    app.add_handler(CommandHandler("addition", add))
+    app.add_handler(CommandHandler("soustraction",sous))
+    app.add_handler(CommandHandler("multiplication",multi))
+    app.add_handler(CommandHandler("showusers",listusers))
+    app.add_handler(CommandHandler("division",div))
+    app.add_handler(CommandHandler("modulo",mod))
+    app.add_handler(CommandHandler("exp",exp))
+    app.add_handler(CommandHandler("question",ask))
+    app.add_handler(CommandHandler("audio",play))
+    app.add_handler(CommandHandler("movie",youtube_se))
+    app.add_handler(CommandHandler("ping",ping))
+    
+    app.add_handler(MessageHandler(filters.TEXT & (~filters.COMMAND),auto_reply))
+
+    print("Ghost a été lancé ")
+    
+    app.run_polling()
     
