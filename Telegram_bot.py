@@ -285,10 +285,10 @@ async def ask(update,context) :
 
         answer = response.text
         for i in range(0,len(answer),2000) :
-            await update.message.reply_text("Machine_IA🤖 \n ")
+            await update.message.reply_text("Ghost IA🤖 \n ")
             await update.message.reply_text("💡 Réponse : "+answer[i:i+4096])
     except Exception as e:
-        await update.message.reply_text(f"⚠️ Machine IA : {e}")
+        await update.message.reply_text(f"⚠️ Ghost IA : {e}")
         
 async def play(update, context):
     if not context.args:
