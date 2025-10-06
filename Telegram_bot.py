@@ -276,7 +276,7 @@ async def ask(update,context) :
         return
 
     try:
-        client = genai.Client(api_key="AIzaSyCXiKQpXkQJjd0bxkHYiuoDcFOLjmM37vA")
+        client = genai.Client(api_key="AIzaSyBBJbrPdw2fwfsmGu6sV-yFAdeZQBJDUvc")
 
         response = client.models.generate_content(
             model="gemini-2.5-pro",
