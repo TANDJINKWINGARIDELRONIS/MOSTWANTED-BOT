@@ -101,7 +101,7 @@ async def time_command(update,context):
        await update.message.reply_text("Ghost 🤖 : Utilisation : /time <Nom de la ville>")
        return
    ville = " ".join(context.args)
-   await update.message.reply_text(local_time(ville))
+   await update.message.reply_text(await local_time(ville))
 
 # Fonction infos
 async def bot_infos(update,context):
