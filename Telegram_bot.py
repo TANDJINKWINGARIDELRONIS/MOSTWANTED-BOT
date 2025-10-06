@@ -51,9 +51,9 @@ async def help_command(update,context):
         "╭─≼ 👨🏻‍💻 MOSTWANTED BOT 🤖 ≽─╮\n"
         "│\n"
         "│ 1- /start   = Démarre le bot 🤖\n"
-        "│ 2- /help    = Afficher les commandes disponibles 📜\n"
+        "│ 2- /aide    = Afficher les commandes disponibles 📜\n"
         "│ 3- /infos   = Donne des infos sur le bot ℹ️\n"
-        "│ 4- /ping    = Vérifie dans tes groupes si je suis en ligne 📡\n"
+        "│ 4- /test    = Vérifie dans tes groupes si je suis en ligne 📡\n"
         "│\n"
         "├─≼ 🔧 SECTION UTILITAIRE ≽─┤\n"
         "│\n"
@@ -557,12 +557,12 @@ async def clear(update,context):
 
     if chat.type in ["group","supergroup"]:
         try:
-            for i in range(message_id,message_id-250,-1):
+            for i in range(message_id,message_id-10,-1):
                 try:
                    await context.bot.delete_message(chat_id=chat_id,message_id=i)
                 except:
                     pass
-            await update.message.reply_text("✅ 50 derniers messages supprimés")
+            await update.message.reply_text("✅ 10 derniers messages supprimés")
         except:
             await update.message.reply_text("❌ Impossible de nettoyer (le bot doit être admin et avoir la permission de suppression)")
 
@@ -605,7 +605,7 @@ if __name__ == "__main__":
     app = ApplicationBuilder().token(BOT_TOKEN).build()
     
     app.add_handler(CommandHandler("start", start))
-    app.add_handler(CommandHandler("help", help_command))
+    app.add_handler(CommandHandler("aide", help_command))
     app.add_handler(CommandHandler("hour", time_command))
     app.add_handler(CommandHandler("infos", bot_infos))
     app.add_handler(CommandHandler("getmeteo", meteo))
@@ -622,7 +622,7 @@ if __name__ == "__main__":
     app.add_handler(CommandHandler("audio",play))
     app.add_handler(CommandHandler("clear",clear))
     app.add_handler(CommandHandler("movie",youtube_se))
-    app.add_handler(CommandHandler("ping",ping))
+    app.add_handler(CommandHandler("test",ping))
     
     app.add_handler(MessageHandler(filters.TEXT & (~filters.COMMAND),auto_reply))
 
