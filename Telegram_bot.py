@@ -59,7 +59,7 @@ async def help_command(update,context):
         "│\n"
         "│ 1- /hour      = Donne l'heure actuelle 🕒\n"
         "│ 2- /getmeteo  = Donne la météo d'une ville ⛅\n"
-        "│ 3- /générate  = Génère des phrases ✍️\n"
+        "│ 3- /generate  = Génère des phrases ✍️\n"
         "│ 4- /sendto    = Envoyer un message à un utilisateur 📩\n"
         "│ 5- /question  = Poser une question au bot 🤖\n"
         "│ 6- /showusers = Consulter les utilisateurs enregistrés 📂\n"
@@ -74,6 +74,7 @@ async def help_command(update,context):
         "│ 6- /modulo   = Reste de la division (a mod b) 🧮\n"
         "│ 7- /audio  = Jouer une musique 🎵\n"
         "│ 8- /movie  = Rechercher une vidéo 📹\n"
+        "│ 9- /clean  = Nettoyer message \n"
         "│\n"
         "╰─≼ 🚀 POWERED BY MOSTWANTED ≽─╯"
     )
