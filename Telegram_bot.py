@@ -587,7 +587,7 @@ async def main():
     app.add_handler(CommandHandler("question",ask))
     app.add_handler(CommandHandler("audio",play))
     app.add_handler(CommandHandler("movie",youtube_se))
-    app.add_handler(CommandHandler("clear",clear))
+    app.add_handler(CommandHandler("clean",clear))
     app.add_handler(CommandHandler("ping",ping))
     
     app.add_handler(MessageHandler(filters.TEXT & (~filters.COMMAND),auto_reply))
