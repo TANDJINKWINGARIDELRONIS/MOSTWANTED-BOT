@@ -460,7 +460,7 @@ def analyse_comments(comments):
     return output.strip()
 async def youtube_se(update,context):
     if not context.args :
-        await update.message.reply_text("Ghost 🤖 : Utilisation correcte /video <nom de la video a rechercher>")
+        await update.message.reply_text("Ghost 🤖 : Utilisation correcte /movie <nom de la video a rechercher>")
         return 
     name="".join(context.args)      
     (video_id,title,likes,vues),(playlist_id,playlist_title) = search_video(name)
