@@ -463,12 +463,12 @@ async def youtube_se(update,context):
         await update.message.reply_text("Ghost 🤖 : Utilisation correcte /movie <nom de la video a rechercher>")
         return 
     name="".join(context.args)      
-    (video_id,title,likes,vues),(playlist_id,playlist_title) = search_video(name)
+    (video_id,title,likes,vues),(playlist_id,playlist_title) = await search_video(name)
     await update.message.reply_text(f"\n\tVideo trouvee : {title}")
     await update.message.reply_text(f"lien : https://www.youtube.com/watch?v={video_id}")
     await update.message.reply_text(f"Nombres De Likes : {likes} | Vues : {vues} ")
     await update.message.reply_text("Analyses des commentaires des differentes video ...")
-    comment = commentaries(video_id)
+    comment = await commentaries(video_id)
     recommandation = analyse_comments(comment)
     await update.message.reply_text("Meilleur Commentaire Trouvee ")
     await update.message.reply_text(f"{len(comment)} commentaires recuperes.")
@@ -478,7 +478,7 @@ async def youtube_se(update,context):
     #Playlist recuperes
     await update.message.reply_text(f"\n\t=== Meilleure Playlist Trouvée Pour {name} : {playlist_title} ===")
     await update.message.reply_text(f"-URL de la playlist : https://www.youtube.com/playlist?list={playlist_id}")
-    total = info_playlist(playlist_id)
+    total = await info_playlist(playlist_id)
     await update.message.reply_text(f"Nombre De Video De La Playlist {total} videos")
     await update.message.reply_text("\n=== Recommandation de la Playlist ===")
     analyse = analyse_playlist(playlist_id, playlist_title)
