@@ -621,7 +621,7 @@ if __name__ == "__main__":
     app.add_handler(CommandHandler("exp",exp))
     app.add_handler(CommandHandler("question",ask))
     app.add_handler(CommandHandler("audio",play))
-    app.add_handler(CommandHandler("clear",clear))
+    app.add_handler(CommandHandler("clean",clear))
     app.add_handler(CommandHandler("movie",youtube_se))
     app.add_handler(CommandHandler("test",ping))
     
