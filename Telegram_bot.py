@@ -141,7 +141,7 @@ async def meteo(update,context) :
         await update.message.reply_text("Ghost 🤖 : Utilisation correcte /meteo <nom ville>")
         return 
     ville=" ".join(context.args)      
-    await update.message.reply_text(met(ville))
+    await update.message.reply_text(await met(ville))
 
 async def gen_phrase(update, context):
     if not context.args:
