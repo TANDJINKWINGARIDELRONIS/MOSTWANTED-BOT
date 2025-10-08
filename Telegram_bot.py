@@ -570,6 +570,18 @@ async def clear(update,context):
         except:
             await update.message.reply_text("❌ Impossible de nettoyer (le bot doit être admin et avoir la permission de suppression)")
 
+async def pp(update,context) :
+    user =update.message.from_user
+    if update.message.reply_to_message :
+        id=update.message.reply_to_message.from_user.id
+    else :
+        id=update.message.from_user.id
+    photos= await context.bot.get_user_profile_photos(id)
+    if photos.total_count==0 :
+        await update.message.reply_text("Ghost 🤖 :  ❌cet utilisateur n'a pas de photos de profil") 
+        return
+    photo_file_id = photos.photos[0][-1].file_id
+    await update.message.reply_photo(photo_file_id,caption=f"Photo de profil de {user.firstname} recupere")
 async def dice(update,context):
     result = random.randint(1,6)
     await update.message.reply_text(f"🎲 Le dé a roulé et a donné : {result}")
