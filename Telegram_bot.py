@@ -574,7 +574,7 @@ async def dice(update,context):
     result = random.randint(1,6)
     await update.message.reply_text(f"🎲 Le dé a roulé et a donné : {result}")
 async def piece(update,context) :
-    result=random.randint("pile","face")
+    result=random.choice(["pile","face"])
     await update.message.reply_text(f"La piece est tombe sur : {result}")
     
 # Main
