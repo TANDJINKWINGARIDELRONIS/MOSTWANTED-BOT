@@ -100,7 +100,7 @@ async def local_time(city):
 
 async def time_command(update,context):
    if not context.args:
-       await update.message.reply_text("Ghost 🤖 : Utilisation : /time <Nom de la ville>")
+       await update.message.reply_text("Ghost 🤖 : Utilisation : /hour <Nom de la ville>")
        return
    ville = " ".join(context.args)
    await update.message.reply_text(await local_time(ville))
@@ -140,7 +140,7 @@ async def met(city) :
 
 async def meteo(update,context) :
     if not context.args :
-        await update.message.reply_text("Ghost 🤖 : Utilisation correcte /meteo <nom ville>")
+        await update.message.reply_text("Ghost 🤖 : Utilisation correcte /getmeteo <nom ville>")
         return 
     ville=" ".join(context.args)      
     await update.message.reply_text(await met(ville))
@@ -208,7 +208,7 @@ async def add(update,context) :
         nbre2 = float(context.args[1])
         await update.message.reply_text(f"Ghost 🤖 : ✨Résultat : {nbre1} + {nbre2} = {nbre1+nbre2 } ")
     except   :
-        await update.message.reply_text("Ghost 🤖 : ❌Usage correct : /add <nombre1> <nombre2>")
+        await update.message.reply_text("Ghost 🤖 : ❌Usage correct : /addition <nombre1> <nombre2>")
 
 #fonction soustraction   
      
@@ -218,7 +218,7 @@ async def sous(update,context) :
         nbre2 = float(context.args[1])
         await update.message.reply_text(f"Ghost 🤖 : ✨Résultat : {nbre1} - {nbre2} = {nbre1-nbre2 } ")
     except  :
-        await update.message.reply_text("Ghost 🤖 : ❌Usage correct : /sous <nombre1> <nombre2>")
+        await update.message.reply_text("Ghost 🤖 : ❌Usage correct : /soustraction <nombre1> <nombre2>")
         
 #fonction multiplication 
 async def multi(update,context) :
@@ -227,7 +227,7 @@ async def multi(update,context) :
         nbre2 = float(context.args[1])
         await update.message.reply_text(f"Ghost 🤖 : ✨Résultat : {nbre1} x {nbre2} = {nbre1*nbre2 } ")
     except  :
-        await update.message.reply_text("Ghost 🤖 : ❌Usage correct : /multi <nombre1> <nombre2>")
+        await update.message.reply_text("Ghost 🤖 : ❌Usage correct : /multiplication <nombre1> <nombre2>")
               
 #fonctuon division 
 async def div (update,context)  :
@@ -239,7 +239,7 @@ async def div (update,context)  :
         else :    
             await update.message.reply_text(f"Ghost 🤖 : ✨Résultat : {nbre1} ÷ {nbre2} = {nbre1/nbre2 } ")
     except  :
-        await update.message.reply_text("Ghost 🤖 : ❌Usage correct : /div <nombre1> <nombre2>")
+        await update.message.reply_text("Ghost 🤖 : ❌Usage correct : /division <nombre1> <nombre2>")
 
 #fonction puissance 
 async def exp(update,context) :
@@ -264,7 +264,7 @@ async def mod(update,context) :
         else :
             await update.message.reply_text(f"Ghost 🤖 : Résultat : {nbre1}mod{nbre2} = {nbre1%nbre2}")
     except :
-        await update.message.reply_text("Ghost 🤖 : ❌Usage correct : /mod <nombre1> <nombre2>")
+        await update.message.reply_text("Ghost 🤖 : ❌Usage correct : /modulo <nombre1> <nombre2>")
 
 
 #fonction pour questionner le bot 
@@ -273,7 +273,7 @@ async def ask(update,context) :
     sender = update.message.from_user.first_name
     print(f"Le client {sender} a poser cette question au bot : {question}")
     if not question:
-        await update.message.reply_text("❌ Utilisation : /ask <ta question>")
+        await update.message.reply_text("❌ Utilisation : /question <ta question>")
         return
 
     try:
@@ -293,7 +293,7 @@ async def ask(update,context) :
         
 async def play(update, context):
     if not context.args:
-        await update.message.reply_text("Ghost 🤖 : ✨Usage correct : /play <titre de la musique>")
+        await update.message.reply_text("Ghost 🤖 : ✨Usage correct : /audio <titre de la musique>")
         return
     
     music_query = " ".join(context.args)
@@ -487,7 +487,7 @@ async def youtube_se(update,context):
 #test connexion 
 async def ping (update,context) :
     user=update.message.from_user
-    await update.message.reply_text(f"MOSTWANTED_BOT 🤖\n salut ☺️ {user.first_name} je suis en ligne ✅  ") 
+    await update.message.reply_text(f"MOSTWANTED_BOT 🤖\n\n\nsalut ☺️ {user.first_name} je suis en ligne ✅  ") 
   
 # Réponses automtiques
 async def auto_reply(update,context):
@@ -515,12 +515,12 @@ async def auto_reply(update,context):
     elif "idiot" in text:
         reply = "Ghost 🤖 : Va te faire foutre🖕️"
     elif  "yo" in text :
-        reply = f"Ghost 🤖 : yess {user.first_name} ça dit quoi "
+        reply = f"Ghost 🤖 : yess  {user.first_name} ça dit quoi "
     elif  "ça dit quoi" in text :
         reply="Ghost 🤖 : yes mon Cho carré et toi😎"
     elif "asser" in text :
         reply=f"Ghost 🤖 : wy {user.first_name}" 
-    elif "qui es tu" in text :
+    elif "qui es tu" in text or "ton nom" in text:
         reply ="Ghost 🤖 : un mini bot créer par MOSTWANTED 😎"
     else:
         responses = [
