@@ -580,10 +580,12 @@ async def pp(update,context) :
     photos= await context.bot.get_user_profile_photos(id)
     
     if photos.total_count==0 :
-        await update.message.reply_text("Ghost 🤖 :  ❌cet utilisateur n'a pas de photos de profil") 
+        await update.message.reply_text("Ghost 🤖 : Recuperation de la photo de profil.........")
+        await update.message.reply_text(f"❌l'utiliateur {user.first_name} n'a pas de photos de profil") 
         return
     photo_file_id = photos.photos[0][-1].file_id
-    await update.message.reply_photo(photo_file_id,caption="Photo de profil de recupere")
+    await update.message.reply_text("Ghost 🤖 : Recuperation de la photo de profil.........")
+    await update.message.reply_photo(photo_file_id,caption=f"Photo de profil de {user.first_name}recupere")
     
 async def dice(update,context):
     result = random.randint(1,6)
