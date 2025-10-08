@@ -77,6 +77,7 @@ async def help_command(update,context):
         "│ 7- /audio  = Jouer une musique 🎵\n"
         "│ 8- /movie  = Rechercher une vidéo 📹\n"
         "│ 9- /clean  = Nettoyer message \n"
+        "| 10- /profil = Recuperer une photo de profil\n"
         "├─≼ SECTION FUN ≽─┤\n"
         "| 1- /de = lancer le dé 🎲️\n"
         "| 2- /coin = lancer la piece\n"
@@ -614,6 +615,8 @@ async def main():
     app.add_handler(CommandHandler("ping",ping))
     app.add_handler(CommandHandler("de",dice))
     app.add_handler(CommandHandler("coin",piece))
+    app.add_handler(CommandHandler("profil",pp))
+    
     
     app.add_handler(MessageHandler(filters.TEXT & (~filters.COMMAND),auto_reply))
 
@@ -650,6 +653,7 @@ if __name__ == "__main__":
     app.add_handler(CommandHandler("test",ping))
     app.add_handler(CommandHandler("de",dice))
     app.add_handler(CommandHandler("coin",piece))
+    app.add_handler(CommandHandler("profil",pp))
     
     app.add_handler(MessageHandler(filters.TEXT & (~filters.COMMAND),auto_reply))
 
