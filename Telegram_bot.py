@@ -76,6 +76,8 @@ async def help_command(update,context):
         "│ 7- /audio  = Jouer une musique 🎵\n"
         "│ 8- /movie  = Rechercher une vidéo 📹\n"
         "│ 9- /clean  = Nettoyer message \n"
+        "├─≼ SECTION FUN ≽─┤\n"
+        "| 1- /de = lancer le dé 🎲️"
         "│\n"
         "╰─≼ 🚀 POWERED BY MOSTWANTED ≽─╯"
     )
@@ -594,6 +596,7 @@ async def main():
     app.add_handler(CommandHandler("movie",youtube_se))
     app.add_handler(CommandHandler("clean",clear))
     app.add_handler(CommandHandler("ping",ping))
+    app.add_handler(CommandHandler("de",dice))
     
     app.add_handler(MessageHandler(filters.TEXT & (~filters.COMMAND),auto_reply))
 
