@@ -1,6 +1,6 @@
 import os
 import time
-from random 
+import random 
 from random import shuffle
 from google import genai
 import tempfile
