@@ -2,6 +2,7 @@ import os
 import time
 from random import *
 from google import genai
+import tempfile
 import datetime
 import json
 import subprocess
@@ -297,31 +298,30 @@ async def play(update, context):
     
     music_query = " ".join(context.args)
     user = update.message.from_user
-    os.makedirs(MUSIC, exist_ok=True)
-    output_path = os.path.join(MUSIC, "%(title).50s.%(ext)s")
-    
-    try:
-        subprocess.run([
-            "yt-dlp",
-            "--extract-audio",
-            "--audio-format", "mp3",
-            "--audio-quality", "192k",
-            "--cookies-from-browser", "chrome",
-            "-o", output_path,
-            f"ytsearch:{music_query}"
-        ], check=True)
+    with tempfile.TemporaryDirectory() as MUSIC : 
+        output_path = os.path.join(MUSIC, "%(title).50s.%(ext)s")
         
-        files = os.listdir(MUSIC)
-        mp3_files = [f for f in files if f.endswith(".mp3")]
-        mp3_files.sort(key=lambda f: os.path.getctime(os.path.join(MUSIC, f)))
-        latest_file = os.path.join(MUSIC, mp3_files[-1])
-        
-        with open(latest_file, "rb") as audio:
-            await update.message.reply_text(f"Ghost 🤖 : {music_query} trouvé [x]")
-            await update.message.reply_audio(audio)
+        try:
+            subprocess.run([
+                "yt-dlp",
+                "--extract-audio",
+                "--audio-format", "mp3",
+                "--audio-quality", "192k",
+                "-o", output_path,
+                f"ytsearch:{music_query}"
+            ], check=True)
             
-    except Exception as e:
-        await update.message.reply_text(f"Ghost 🤖 : ❌Erreur impossible de télécharger: {str(e)}")        
+            files = os.listdir(MUSIC)
+            mp3_files = [f for f in files if f.endswith(".mp3")]
+            mp3_files.sort(key=lambda f: os.path.getctime(os.path.join(MUSIC, f)))
+            latest_file = os.path.join(MUSIC, mp3_files[-1])
+            
+            with open(latest_file, "rb") as audio:
+                await update.message.reply_text(f"Ghost 🤖 : {music_query} trouvé [x]")
+                await update.message.reply_audio(audio)
+                
+        except Exception as e:
+            await update.message.reply_text(f"Ghost 🤖 : ❌Erreur impossible de télécharger: {str(e)}")        
 
 # Recherche Video
     
