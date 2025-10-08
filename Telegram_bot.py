@@ -566,6 +566,11 @@ async def clear(update,context):
         except:
             await update.message.reply_text("❌ Impossible de nettoyer (le bot doit être admin et avoir la permission de suppression)")
 
+async def dice(update,context):
+    user=update.messae.from_user.firstname
+    result=randint(1,6)
+    await update.message.reply_text(f"GENIAL {user} du as obtenu : 🎲️ {result} ")
+    
 # Main
 async def main():
     app = ApplicationBuilder.token(BOT_TOKEN).build()
