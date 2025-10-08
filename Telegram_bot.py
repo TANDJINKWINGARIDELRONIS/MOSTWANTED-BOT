@@ -569,9 +569,8 @@ async def clear(update,context):
             await update.message.reply_text("❌ Impossible de nettoyer (le bot doit être admin et avoir la permission de suppression)")
 
 async def dice(update,context):
-    user=update.messae.from_user
-    result= await randint(1,6)
-    await update.message.reply_text(f"GENIAL {user.first_name} du as obtenu : 🎲️ {result} ")
+    result = random.randint(1,6)
+    await update.message.reply_text(f"🎲 Le dé a roulé et a donné : {result}")
     
 # Main
 async def main():
