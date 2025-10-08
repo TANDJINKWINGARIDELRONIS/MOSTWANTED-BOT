@@ -570,7 +570,7 @@ async def clear(update,context):
 
 async def dice(update,context):
     user=update.messae.from_user.firstname
-    result=randint(1,6)
+    result=random.randint(1,6)
     await update.message.reply_text(f"GENIAL {user} du as obtenu : 🎲️ {result} ")
     
 # Main
