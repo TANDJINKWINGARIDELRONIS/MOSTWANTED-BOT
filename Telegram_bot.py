@@ -77,7 +77,8 @@ async def help_command(update,context):
         "│ 8- /movie  = Rechercher une vidéo 📹\n"
         "│ 9- /clean  = Nettoyer message \n"
         "├─≼ SECTION FUN ≽─┤\n"
-        "| 1- /de = lancer le dé 🎲️"
+        "| 1- /de = lancer le dé 🎲️\n"
+        "| 2- /coin = lancer la piece\n"
         "│\n"
         "╰─≼ 🚀 POWERED BY MOSTWANTED ≽─╯"
     )
@@ -571,6 +572,9 @@ async def clear(update,context):
 async def dice(update,context):
     result = random.randint(1,6)
     await update.message.reply_text(f"🎲 Le dé a roulé et a donné : {result}")
+async def piece(update,context) :
+    result=random.randint("pile","face")
+    await update.message.reply_text(f"La piece est tombe sur : {result}")
     
 # Main
 async def main():
@@ -596,6 +600,7 @@ async def main():
     app.add_handler(CommandHandler("clean",clear))
     app.add_handler(CommandHandler("ping",ping))
     app.add_handler(CommandHandler("de",dice))
+    app.add_handler(CommandHandler("coin",piece))
     
     app.add_handler(MessageHandler(filters.TEXT & (~filters.COMMAND),auto_reply))
 
@@ -630,6 +635,8 @@ if __name__ == "__main__":
     app.add_handler(CommandHandler("clean",clear))
     app.add_handler(CommandHandler("movie",youtube_se))
     app.add_handler(CommandHandler("test",ping))
+    app.add_handler(CommandHandler("de",dice))
+    app.add_handler(CommandHandler("coin",piece))
     
     app.add_handler(MessageHandler(filters.TEXT & (~filters.COMMAND),auto_reply))
 
