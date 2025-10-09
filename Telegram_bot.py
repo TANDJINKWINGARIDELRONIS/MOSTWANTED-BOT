@@ -36,48 +36,47 @@ leagues = {
     "can": "AFRICA_CUP_OF_NATIONS",
     "nations league": "NATIONS_LEAGUE"
 }
-citations = {
-   " « Le bonheur nest pas quelque chose de prêt à l’emploi. Il vient de vos propres actions. »"
-    "— Dalaï-Lama"
+citations = [
+   " « Le bonheur nest pas quelque chose de prêt à l’emploi. Il vient de vos propres actions. »\n— Dalaï-Lama",
 
-    "« Le plus grand risque est de ne prendre aucun risque. »\n— Mark Zuckerberg"
+    "« Le plus grand risque est de ne prendre aucun risque. »\n— Mark Zuckerberg",
 
-    "« La connaissance s’acquiert par l’expérience, tout le reste n’est que de l’information. »\n— Albert Einstein"
+    "« La connaissance s’acquiert par l’expérience, tout le reste n’est que de l’information. »\n— Albert Einstein",
 
-    "« Il n’y a qu’une façon d’échouer, c’est d’abandonner avant d’avoir réussi. »\n— Georges Clemenceau"
+    "« Il n’y a qu’une façon d’échouer, c’est d’abandonner avant d’avoir réussi. »\n— Georges Clemenceau",
 
-    "« Sois le changement que tu veux voir dans le monde. »\n— Mahatma Gandhi"
+    "« Sois le changement que tu veux voir dans le monde. »\n— Mahatma Gandhi",
 
-    "« La simplicité est la sophistication suprême. »\n— Léonard de Vinci"
+    "« La simplicité est la sophistication suprême. »\n— Léonard de Vinci",
 
-    "« La liberté commence où l’ignorance finit. »\n— Victor Hugo"
+    "« La liberté commence où l’ignorance finit. »\n— Victor Hugo",
 
-    "« Ce que nous savons est une goutte d’eau, ce que nous ignorons est un océan. »\n— Isaac Newton"
+    "« Ce que nous savons est une goutte d’eau, ce que nous ignorons est un océan. »\n— Isaac Newton",
 
-    "« L’échec est le fondement de la réussite. »\n— Lao Tseu"
+    "« L’échec est le fondement de la réussite. »\n— Lao Tseu",
 
-    "« Ils ne savaient pas que c’était impossible, alors ils l’ont fait. »\n— Mark Twain"
+    "« Ils ne savaient pas que c’était impossible, alors ils l’ont fait. »\n— Mark Twain",
 
-    "« Apprendre sans réfléchir est vain, réfléchir sans apprendre est dangereux. »\n— Confucius"
+    "« Apprendre sans réfléchir est vain, réfléchir sans apprendre est dangereux. »\n— Confucius",
 
-    "« L’avenir appartient à ceux qui croient à la beauté de leurs rêves. »\n — Eleanor Roosevelt"
+    "« L’avenir appartient à ceux qui croient à la beauté de leurs rêves. »\n — Eleanor Roosevelt",
 
-    "« Le courage n’est pas l’absence de peur, mais la capacité de la vaincre. »\n— Nelson Mandela"
+    "« Le courage n’est pas l’absence de peur, mais la capacité de la vaincre. »\n— Nelson Mandela",
 
-    "« Celui qui déplace une montagne commence par déplacer de petites pierres. »\n— Confucius"
+    "« Celui qui déplace une montagne commence par déplacer de petites pierres. »\n— Confucius",
 
-    "« La plus grande gloire n’est pas de ne jamais tomber, mais de se relever à chaque chute. »\n— Nelson Mandela"
+    "« La plus grande gloire n’est pas de ne jamais tomber, mais de se relever à chaque chute. »\n— Nelson Mandela",
 
-    "« Le succès, c’est d’aller d’échec en échec sans perdre son enthousiasme. »\n— Winston Churchill"
+    "« Le succès, c’est d’aller d’échec en échec sans perdre son enthousiasme. »\n— Winston Churchill",
 
-    "« La meilleure façon de prédire l’avenir, c’est de le créer. »\n— Peter Drucker"
+    "« La meilleure façon de prédire l’avenir, c’est de le créer. »\n— Peter Drucker",
 
-    "« On ne voit bien qu’avec le cœur. L’essentiel est invisible pour les yeux. »\n— Antoine de Saint-Exupéry"
+    "« On ne voit bien qu’avec le cœur. L’essentiel est invisible pour les yeux. »\n— Antoine de Saint-Exupéry",
 
-    "« L’éducation est l’arme la plus puissante qu’on puisse utiliser pour changer le monde. »\n— Nelson Mandela"
+    "« L’éducation est l’arme la plus puissante qu’on puisse utiliser pour changer le monde. »\n— Nelson Mandela",
 
     "« Ce n’est pas la force, mais la persévérance, qui fait les grandes choses. »\n— Samuel Johnson"
-} 
+]
 MUSIC = "music_MW"
 USERS_FILE = "users1.json"
 users1 = {}
