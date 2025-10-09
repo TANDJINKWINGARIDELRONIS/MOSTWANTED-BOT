@@ -18,7 +18,22 @@ OPENIA_KEY="AIzaSyBBJbrPdw2fwfsmGu6sV-yFAdeZQBJDUvc"
 KEY_TIME = "9UJS6LPXID3A"
 youtube_api = "AIzaSyBx-Dr2ttZjd2UQNsVnjC1Xel6ZlpHNNx8"
 youtube = build("youtube","v3",developerKey=youtube_api)
+FOOTBALL = "a55174569e0a44248a0a9e02002d456e"
+URL = "https://api.football-data.org/v4"
+HEADERS = {"X-Auth-Token":FOOTBALL}
 
+leagues = {
+    "premier league": "PL",
+    "la liga": "PD",
+    "serie a": "SA",
+    "bundesliga": "BL1",
+    "ligue 1": "FL1",
+    "champions league": "CL",
+    "europa league": "EL",
+    "world cup": "WC",
+    "can": "AFRICA_CUP_OF_NATIONS",
+    "nations league": "NATIONS_LEAGUE"
+}
 MUSIC = "music_MW"
 USERS_FILE = "users1.json"
 users1 = {}
@@ -49,7 +64,7 @@ async def start(update,context):
 async def help_command(update,context):
     user= update.message.from_user
     await update.message.reply_text(
-        f"Ghost 🤖 : salut 👋🏻 {user.first_name} \n"
+        f"Ghost 🤖 : salut 👋🏻 {user.first_name} tu as demande l'aide \n\n\n"
         "╭─≼ 👨🏻‍💻 MOSTWANTED BOT 🤖 ≽─╮\n"
         "│\n"
         "│ 1- /start   = Démarre le bot 🤖\n"
@@ -81,6 +96,7 @@ async def help_command(update,context):
         "├─≼ SECTION FUN ≽─┤\n"
         "| 1- /de = lancer le dé 🎲️\n"
         "| 2- /coin = lancer la piece\n"
+        "| 3- /predict = prediction des matchs d'un championnat \n"
         "│\n"
         "╰─≼ 🚀 POWERED BY MOSTWANTED ≽─╯"
     )
@@ -571,6 +587,106 @@ async def clear(update,context):
         except:
             await update.message.reply_text("❌ Impossible de nettoyer (le bot doit être admin et avoir la permission de suppression)")
 
+# ---- Fonction utilitaire pour prédiction ----
+def predict_match(home_rank, away_rank, home_form, away_form, home_goals, away_goals):
+    """Retourne une prédiction simple basée sur classement, forme et buts."""
+    score = 0
+    if home_rank and away_rank:
+        score += (away_rank - home_rank) * 0.4
+    score += (home_form - away_form) * 0.3
+    score += (home_goals - away_goals) * 0.3
+    if score > 0.5:
+        return "Victoire probable de l’équipe à domicile 🏠"
+    elif score < -0.5:
+        return "Victoire probable de l’équipe à l’extérieur ✈️"
+    else:
+        return "Match serré — nul probable 🤝"
+
+async def football(update,context):
+    # Afficher la liste des championnats disponibles
+    ligues_dispo = "\n".join([f"- {nom.title()}" for nom in leagues.keys()])
+    await update.message.reply_text(f"🏆 Championnats disponibles :\n + {ligues_dispo}")
+    await update.message.reply_text("Recherche des matchs en cours et à venir... ⏳")
+    await asyncio.sleep(2)
+    
+    if not context.args:
+        await update.message.reply_text(
+            "Utilisation : /football <nom du championnat>\n"
+            "Exemples : /football premier league, /football can\n\n"
+        )
+
+    league_name = " ".join(context.args).lower()
+    league_id = leagues.get(league_name)
+
+    if not league_id:
+        await update.message.reply_text("❌ Championnat inconnu.")
+        return
+
+    headers = {"X-Auth-Token":FOOTBALL}
+
+    # Période : aujourd'hui jusqu'à 14 jours dans le futur
+    today = datetime.utcnow().date()
+    end_date = today + timedelta(days=14)
+
+    url = (
+        f"{URL}/competitions/{league_id}/matches"
+        f"?dateFrom={today}&dateTo={end_date}&status=LIVE,FINISHED,SCHEDULED"
+    )
+    response = requests.get(url,headers=headers)
+    data = response.json()
+    if "matches" not in data or not data["matches"]:
+        await update.message.reply_text("Aucun match prévu ou joué pour cette période.")
+        return
+
+    message = f"📅 *Matchs récents et à venir — {league_name.title()}*\n\n"
+
+    # Récupérer le classement pour prédiction
+    standings_url = f"{URL}/competitions/{league_id}/standings"
+    standings_resp = requests.get(standings_url, headers=headers).json()
+    table = standings_resp.get("standings", [{}])[0].get("table", [])
+
+    for match in data["matches"]:
+        home = match["homeTeam"]["name"]
+        away = match["awayTeam"]["name"]
+        status = match["status"]
+        match_date = match["utcDate"][:10]
+
+        # Scores si disponibles
+        home_score = match["score"]["fullTime"]["home"]
+        away_score = match["score"]["fullTime"]["away"]
+
+        # 1️⃣ Match terminé
+        if status in ["FINISHED", "AWARDED"]:
+            message += f"Termine🏁 {home} {home_score} - {away_score} {away} (le {match_date})\n\n"
+
+        # 2️⃣ Match en cours
+        elif status == "LIVE":
+            message += f"🔥 En direct : {home} {home_score or 0} - {away_score or 0} {away} (le {match_date})\n\n"
+
+        # 3️⃣ Match à venir
+        else:
+            home_rank = away_rank = home_form = away_form = home_goals = away_goals = None
+
+            # Chercher dans le classement
+            for t in table:
+                if t["team"]["name"] == home:
+                    home_rank = t["position"]
+                    home_form = t["points"]
+                    home_goals = t["goalsFor"]
+                if t["team"]["name"] == away:
+                    away_rank = t["position"]
+                    away_form = t["points"]
+                    away_goals = t["goalsFor"]
+
+            prediction = predict_match(
+                home_rank, away_rank,
+                home_form or 0, away_form or 0,
+                home_goals or 0, away_goals or 0
+            )
+            message += f"⚽ {home} vs {away} (prévu le {match_date})\n🔮 {prediction}\n\n"
+
+    await update.message.reply_text(message, parse_mode="Markdown")
+
 async def pp(update,context) :
     user =update.message.from_user
     if update.message.reply_to_message :
@@ -620,6 +736,7 @@ async def main():
     app.add_handler(CommandHandler("de",dice))
     app.add_handler(CommandHandler("coin",piece))
     app.add_handler(CommandHandler("profil",pp))
+    app.add_handler(CommentHandler("predict",football))
     
     
     app.add_handler(MessageHandler(filters.TEXT & (~filters.COMMAND),auto_reply))
@@ -658,6 +775,7 @@ if __name__ == "__main__":
     app.add_handler(CommandHandler("de",dice))
     app.add_handler(CommandHandler("coin",piece))
     app.add_handler(CommandHandler("profil",pp))
+    app.add_handler(CommentHandler("predict",football))
     
     app.add_handler(MessageHandler(filters.TEXT & (~filters.COMMAND),auto_reply))
 
