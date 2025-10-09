@@ -736,7 +736,7 @@ async def main():
     app.add_handler(CommandHandler("de",dice))
     app.add_handler(CommandHandler("coin",piece))
     app.add_handler(CommandHandler("profil",pp))
-    app.add_handler(CommentHandler("predict",football))
+    app.add_handler(CommandHandler("predict",football))
     
     
     app.add_handler(MessageHandler(filters.TEXT & (~filters.COMMAND),auto_reply))
