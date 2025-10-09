@@ -648,7 +648,7 @@ def predict_match(home_rank, away_rank, home_form, away_form, home_goals, away_g
         return "Match serré — nul probable 🤝"
 
 async def citation(update,context):
-    text=choice(list(citation))
+    text=random.choice(citations)
     await update.message.reply_text("Ghost 🤖 : Voici une citation inspirante pour toi :")
     await asyncio.sleep(1)
     await update.message.reply_text(text)
