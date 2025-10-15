@@ -181,7 +181,7 @@ async def bot_infos(update,context):
         "©️LIEN DU BOT : t.me/MostwantedX_bot\n"
         "📱contact de MOSTWANTED :\n"
         "💻WhatsApp=655-56-26-34\n"
-        "🖥️Facebook lite=RIDEL TANDJI \n"
+        "🖥️Facebook lite=Ridel tandji \n"
     )
 
 async def met(city) :
@@ -552,7 +552,7 @@ async def youtube_se(update,context):
 #test connexion 
 async def ping (update,context) :
     user=update.message.from_user
-    await update.message.reply_text(f"MOSTWANTED_BOT 🤖\n\n\nsalut ☺️ {user.first_name} je suis en ligne ✅  ") 
+    await update.message.reply_text(f"Ghost 🤖 :\n\n\nTest reussi ✅ {user.first_name} je suis en ligne ✅  ") 
   
 # Réponses automtiques
 async def auto_reply(update,context):
@@ -573,8 +573,6 @@ async def auto_reply(update,context):
     elif "heure" in text:
         now = time_command()
         reply = f"Ghost 🤖 : ⏰ Il est actuellement {now.strftime('%H:%M:%S')}"
-    elif "ton nom" in text:
-        reply = "Ghost 🤖 : Je suis ton GHOST  🤖 créé par MOSTWANTED 😎"
     elif  "api" in text  or  "token" in text :
         reply ="Ghost 🤖 : Bien essayer mais tu auras pas mes clés si facilement 😂😂☺️"
     elif "idiot" in text:
@@ -661,8 +659,8 @@ async def football(update,context):
     
     if not context.args:
         await update.message.reply_text(
-            "Utilisation : /football <nom du championnat>\n"
-            "Exemples : /football premier league, /football can\n\n"
+            "Utilisation : /predict <nom du championnat>\n"
+            "Exemples : /predict premier league, /football can\n\n"
         )
 
     league_name = " ".join(context.args).lower()
