@@ -101,7 +101,7 @@ async def start(update,context):
     }
     with open(USERS_FILE, "w") as f:
         json.dump(users1,f,indent = 4)
-    await update.message.reply_text(f"Ghost 🤖 : Salut {user.first_name} ! Tu es enregistré ✅\n Tape /help pour voir ce dont je suis capable 😎")
+    await update.message.reply_text(f"Ghost 🤖 : Salut {user.first_name} ! Tu es enregistré ✅\n Tape /aide pour voir ce dont je suis capable 😎")
     
 # Fonction help
 async def help_command(update,context):
