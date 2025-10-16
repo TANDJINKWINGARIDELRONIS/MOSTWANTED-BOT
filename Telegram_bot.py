@@ -79,6 +79,8 @@ citations = [
 ]
 MUSIC = "music_MW"
 USERS_FILE = "users1.json"
+MEMBERS_FILE="members.json"
+user= {}
 users1 = {}
 
 
@@ -178,7 +180,7 @@ async def bot_infos(update,context):
         "✨VERSION  : 3.5 \n"
         "🥇️LANGUAGE : PYTHON \n"
         "👩‍💻️DEVELOPPEUR : MOSTWANTED 😎 \n"
-        "©️LIEN DU BOT : t.me/MostwantedX_bot\n"
+        "©️LIEN DU BOT : \nt.me/MostwantedX_bot\n"
         "📱contact de MOSTWANTED :\n"
         "💻WhatsApp=655-56-26-34\n"
         "🖥️Facebook lite=Ridel tandji \n"
@@ -643,7 +645,7 @@ def predict_match(home_rank, away_rank, home_form, away_form, home_goals, away_g
         return "Victoire probable de l’équipe à l’extérieur ✈️"
     else:
         return "Match serré — nul probable 🤝"
-
+#Fonction pour des citations 
 async def citation(update,context):
     await update.message.reply_text("Ghost 🤖 : Voici une citation inspirante pour toi :")
     await asyncio.sleep(1)
@@ -734,7 +736,7 @@ async def football(update,context):
             message += f"⚽ {home} vs {away} (prévu le {match_date})\n🔮 {prediction}\n\n"
 
     await update.message.reply_text(message, parse_mode="Markdown")
-
+#Fonction pour recuperer la photo de profil
 async def pp(update,context) :
     user =update.message.from_user
     if update.message.reply_to_message :
@@ -750,13 +752,52 @@ async def pp(update,context) :
     photo_file_id = photos.photos[0][-1].file_id
     await update.message.reply_text("Ghost 🤖 : Recuperation de la photo de profil.........")
     await update.message.reply_photo(photo_file_id,caption=f"Photo de profil de {user.first_name}recupere")
-    
+# Foction pour lancer le de    
 async def dice(update,context):
+# Foction pour lancer la piece
     result = random.randint(1,6)
     await update.message.reply_text(f"🎲 Le dé a roulé et a donné : {result}")
 async def piece(update,context) :
     result=random.choice(["pile","face"])
     await update.message.reply_text(f"La piece est tombe sur : {result}")
+
+# Fonction tagall
+async def load_members():
+    if os.path.exists("members.json"):
+        with open("members.json","r",encoding="utf-8") as file :
+            members = json.load(file)
+        print(f"Les membres ont été chargés depuis le fichier members.json ✅")
+        return members
+async def save_members(data):
+    with open("members.json","r",encoding="utf-8") as f:
+        json.dump(data,f)
+
+async def track_member(update,context):
+    chat=chat.effective_chat
+    user=update.message.from_user
+    if not chat or not user :
+        return 
+    members=load_members()
+    if str(chat.id) not in members :
+        members[str(chat.id)]={}
+    if user.is_bot :
+        members[str(chat.id)][str(user.id)]=user.first_name
+    save_members(members)
+    
+async def tagall (update,context):
+    chat=chat.effective_type
+    if chat.type not in ["group","supergroup"] :
+        await update.message.reply_text("Ghost 🤖 : ❌Foctionalite disponible uniquement dans les groupes")
+        return
+    members=load_members().get(str(chat.id),{})
+    if not members :
+        await update.message.reply_text("Ghost 🤖 : ❌ Aucun membres enregistres pour le moment")
+        return
+    tag= ""
+    text = " ".join(context.args)
+    for user_id, name in members.items():
+        tag=f"@{name} {text}"
+        await update.message.reply_text(f"Ghost 🤖 :{tag}")
     
 # Main
 async def main():
@@ -786,6 +827,7 @@ async def main():
     app.add_handler(CommandHandler("profil",pp))
     app.add_handler(CommandHandler("predict",football))
     app.add_handler(CommandHandler("citation",citation))
+    app.add_handler(CommandHandler("tagall",tagall))
     
     
     app.add_handler(MessageHandler(filters.TEXT & (~filters.COMMAND),auto_reply))
@@ -826,6 +868,7 @@ if __name__ == "__main__":
     app.add_handler(CommandHandler("profil",pp))
     app.add_handler(CommandHandler("predict",football))
     app.add_handler(CommandHandler("citation",citation))
+    app.add_handler(CommandHandler("tagall",tagall))
     
     app.add_handler(MessageHandler(filters.TEXT & (~filters.COMMAND),auto_reply))
 
